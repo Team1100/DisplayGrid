@@ -5,6 +5,7 @@
 package displaygrid.apps;
 
 import displaygrid.ClientApp;
+import displaygrid.Config;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Graphics;
@@ -17,26 +18,24 @@ import javax.swing.JPanel;
  * @author Akshay
  */
 public class RandomColorsClientApp extends ClientApp {
-    
+
     static final String APPNAME = RandomColorsServerApp.APPNAME;
-    static final long TARGET_DELTA = 1000/5;
-    
-    private Color color; 
-    
+    static final long TARGET_DELTA = 1000 / 5;
+
+    private Color color;
+
     private JFrame frame;
     private JPanel panel;
-    
-           
-    
+
     @Override
-    public void init(){
-        color = Color.BLACK;  
-        
+    public void init() {
+        color = Color.BLACK;
+
         frame = new JFrame();
         frame.setTitle(this.getName());
-        panel = new JPanel(){
+        panel = new JPanel() {
             @Override
-            public void paint(Graphics g){
+            public void paint(Graphics g) {
                 paintPanel(g);
             }
         };
@@ -45,22 +44,23 @@ public class RandomColorsClientApp extends ClientApp {
         frame.setUndecorated(true);
         Dimension d = Toolkit.getDefaultToolkit().getScreenSize();
         frame.setSize(d.width, d.height);
+        frame.setCursor(Config.cursor);
         frame.setVisible(true);
-        
+
     }
-    
-    public void paintPanel(Graphics g){
+
+    public void paintPanel(Graphics g) {
         g.setColor(color);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
     }
-    
+
     @Override
     public void update() {
         frame.repaint();
     }
-    
+
     @Override
-    public void end(){
+    public void end() {
         frame.setVisible(false);
     }
 
@@ -69,7 +69,7 @@ public class RandomColorsClientApp extends ClientApp {
         //System.out.println(command);
         String[] components = command.split(",");
         int[] rgb = new int[3];
-        for(int i = 0; i < rgb.length; i++){
+        for (int i = 0; i < rgb.length; i++) {
             rgb[i] = Integer.parseInt(components[i]);
         }
         color = new Color(rgb[0], rgb[1], rgb[2]);
@@ -79,14 +79,14 @@ public class RandomColorsClientApp extends ClientApp {
     public String getCommand() {
         return null;
     }
-    
+
     @Override
-    public long getTargetDelta(){
+    public long getTargetDelta() {
         return TARGET_DELTA;
     }
-    
+
     @Override
     public String toString() {
         return APPNAME;
-    }    
+    }
 }

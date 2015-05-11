@@ -5,6 +5,7 @@
 package displaygrid.apps;
 
 import displaygrid.ClientApp;
+import displaygrid.Config;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
@@ -23,15 +24,15 @@ import javax.swing.JPanel;
 public class TextBannerClientApp extends ClientApp {
 
     static final String APPNAME = TextBannerServerApp.APPNAME;
-    static final long TARGET_DELTA = 1000/20;
-    
+    static final long TARGET_DELTA = 1000 / 20;
+
     private JFrame frame;
     private JPanel panel;
-    
+
     private String message = "";
     private float posX = 0.0f;
     private float speed = 0;
-    
+
     private Font font;
     private boolean fontSet = false;
     private Color bgColor = Color.BLACK;
@@ -40,14 +41,14 @@ public class TextBannerClientApp extends ClientApp {
     @Override
     public void init() {
         frame = new JFrame();
-        
+
         panel = new JPanel() {
             @Override
             public void paint(Graphics g) {
                 paintPanel((Graphics2D) g);
             }
         };
-        
+
         frame.add(panel);
         frame.setResizable(true);
         frame.setUndecorated(true);
@@ -56,26 +57,27 @@ public class TextBannerClientApp extends ClientApp {
         //frame.setSize(400, 200);
         frame.setTitle(getName());
         panel.setDoubleBuffered(true);
+        frame.setCursor(Config.cursor);
         frame.setVisible(true);
-        
+
     }
 
     private void paintPanel(Graphics2D g) {
-        
-        if(!fontSet){
-            font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight()/2);
+
+        if (!fontSet) {
+            font = new Font(Font.MONOSPACED, Font.BOLD, panel.getHeight() / 2);
             g.setFont(font);
         }
-        
+
         g.setColor(bgColor);
         g.fillRect(0, 0, panel.getWidth(), panel.getHeight());
         g.setColor(textColor);
 
         Rectangle target = new Rectangle(0, 0, panel.getWidth(), panel.getHeight());
         Rectangle2D text = g.getFontMetrics().getStringBounds(message, g);
-        
-        int textX = (int)(posX * panel.getWidth());
-        
+
+        int textX = (int) (posX * panel.getWidth());
+
         int centerY = (target.height) - (int) (target.height - text.getHeight()) / 2 - target.height / 5;
         g.drawString(message, textX, centerY);
     }
@@ -103,8 +105,8 @@ public class TextBannerClientApp extends ClientApp {
     public void setPosition(String s) {
         posX = Float.parseFloat(s);
     }
-    
-    public void setSpeed(String s){
+
+    public void setSpeed(String s) {
         speed = Float.parseFloat(s);
     }
 
@@ -140,9 +142,9 @@ public class TextBannerClientApp extends ClientApp {
     public String getCommand() {
         return null;
     }
-    
+
     @Override
-    public long getTargetDelta(){
+    public long getTargetDelta() {
         return TARGET_DELTA;
     }
 

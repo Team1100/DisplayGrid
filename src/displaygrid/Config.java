@@ -14,6 +14,10 @@ import displaygrid.apps.frcmatchfeed.FRCMatchResultsClientApp;
 import displaygrid.apps.frcmatchfeed.FRCMatchResultsServerApp;
 import displaygrid.apps.team1100feed.Team1100TweetsClientApp;
 import displaygrid.apps.team1100feed.Team1100TweetsServerApp;
+import java.awt.Cursor;
+import java.awt.Point;
+import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
 
 /**
  *
@@ -49,4 +53,5 @@ public class Config {
         Team1100TweetsServerApp.class,
     };
     
+     public static Cursor cursor = Toolkit.getDefaultToolkit().createCustomCursor(new BufferedImage(1, 1, BufferedImage.TRANSLUCENT), new Point(0,0), "InvisibleCursor");
 }
